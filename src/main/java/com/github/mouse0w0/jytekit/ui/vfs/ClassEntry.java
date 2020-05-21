@@ -4,6 +4,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.tree.ClassNode;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.ref.SoftReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,7 +23,7 @@ public class ClassEntry extends SimpleVFSEntry {
     }
 
     private ClassNode loadClassNode() {
-        try (var input = Files.newInputStream(getPath())) {
+        try (InputStream input = Files.newInputStream(getPath())) {
             ClassReader cr = new ClassReader(input);
             ClassNode cn = new ClassNode();
             cachedClassNode = new SoftReference<>(cn);
